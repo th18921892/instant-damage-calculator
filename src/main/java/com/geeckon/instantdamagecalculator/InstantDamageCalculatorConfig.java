@@ -3,6 +3,7 @@ package com.geeckon.instantdamagecalculator;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("instantDamageCalculator")
@@ -141,6 +142,41 @@ public interface InstantDamageCalculatorConfig extends Config
     default boolean resetOnMuspahPhase()
     {
         return false;
+    }
+
+    @ConfigItem(
+            keyName = "scaleXpDrops",
+            name = "Scale XP drops",
+            description = "If enabled, the size of the skill icons and the font of all xp drops are overridden with the settings below. Applies to every xp drop, not only replaced ones",
+            position = 13
+    )
+    default boolean scaleXpDrops()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "xpDropIconSize",
+            name = "XP drop icon size",
+            description = "Size of the skill icons in xp drops, in pixels. The game uses 16 (small) or 25 (medium/large). Requires \"Scale XP drops\"",
+            position = 14
+    )
+    @Range(min = 8, max = 64)
+    @Units(Units.PIXELS)
+    default int xpDropIconSize()
+    {
+        return 25;
+    }
+
+    @ConfigItem(
+            keyName = "xpDropFont",
+            name = "XP drop font",
+            description = "Font used for the text of xp drops. The game has no free font size, only these fonts. Pick an icon size that is at least as tall as the font to avoid clipping. Requires \"Scale XP drops\"",
+            position = 15
+    )
+    default XpDropFont xpDropFont()
+    {
+        return XpDropFont.DEFAULT;
     }
 
 }
