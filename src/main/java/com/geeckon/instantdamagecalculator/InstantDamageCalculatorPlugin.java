@@ -498,7 +498,30 @@ public class InstantDamageCalculatorPlugin extends Plugin
 			// This runs prior to the proc being invoked, so the arguments are still on the stack.
 			// Grab the first argument to the script.
 			final int widgetId = intStack[intStackSize - 4];
+			scaleXpDrop(intStack, intStackSize);
 			processXpDrop(widgetId);
+		}
+	}
+
+	/**
+	 * Overrides the size and font arguments of the xpdrops_setdropsize script.
+	 *
+	 * The script signature is (component, int iconSize, fontmetrics font, graphic font, string text),
+	 * so the int stack holds [component, iconSize, fontmetrics, graphic] at this point. The script
+	 * sizes and positions the skill icons using iconSize and sets the text font using the font ids,
+	 * so changing these arguments is enough to scale the whole drop.
+	 */
+	private void scaleXpDrop(int[] intStack, int intStackSize) {
+		if (!config.scaleXpDrops()) {
+			return;
+		}
+
+		intStack[intStackSize - 3] = config.xpDropIconSize();
+
+		final XpDropFont font = config.xpDropFont();
+		if (font != XpDropFont.DEFAULT) {
+			intStack[intStackSize - 2] = font.getFontId();
+			intStack[intStackSize - 1] = font.getFontId();
 		}
 	}
 
