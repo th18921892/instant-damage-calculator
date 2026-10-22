@@ -147,7 +147,7 @@ public interface InstantDamageCalculatorConfig extends Config
     @ConfigItem(
             keyName = "scaleXpDrops",
             name = "Scale XP drops",
-            description = "If enabled, the size of the skill icons and the font of all xp drops are overridden with the settings below. Applies to every xp drop, not only replaced ones",
+            description = "If enabled, all xp drops are drawn at the size below: the skill icons are resized and the text is drawn by the plugin in a matching font (Verdana bold) instead of the game's fixed-size font. Applies to every xp drop, not only replaced ones",
             position = 13
     )
     default boolean scaleXpDrops()
@@ -157,8 +157,8 @@ public interface InstantDamageCalculatorConfig extends Config
 
     @ConfigItem(
             keyName = "xpDropIconSize",
-            name = "XP drop icon size",
-            description = "Size of the skill icons in xp drops, in pixels. The game uses 16 (small) or 25 (medium/large). Requires \"Scale XP drops\"",
+            name = "XP drop size",
+            description = "Size of the skill icons and text in xp drops, in pixels. The game itself uses 16 (small) or 25 (medium/large). Requires \"Scale XP drops\"",
             position = 14
     )
     @Range(min = 8, max = 64)
@@ -166,17 +166,6 @@ public interface InstantDamageCalculatorConfig extends Config
     default int xpDropIconSize()
     {
         return 25;
-    }
-
-    @ConfigItem(
-            keyName = "xpDropFont",
-            name = "XP drop font",
-            description = "Font used for the text of xp drops. The game has no free font size, only these fonts. Pick an icon size that is at least as tall as the font to avoid clipping. Requires \"Scale XP drops\"",
-            position = 15
-    )
-    default XpDropFont xpDropFont()
-    {
-        return XpDropFont.DEFAULT;
     }
 
 }
